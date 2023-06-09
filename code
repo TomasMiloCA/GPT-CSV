@@ -4,7 +4,7 @@ import os
 import pandas as pd
 
 #Enter your OPEN AI API key
-openai.api_key = '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'
+openai.api_key = 'ENTER YOUR API KEY HERE'
 
 
 #read in your CSV
