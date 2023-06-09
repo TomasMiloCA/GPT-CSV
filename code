@@ -1,0 +1,37 @@
+#load the packages
+import openai
+import os
+import pandas as pd
+
+#Enter your OPEN AI API key
+openai.api_key = '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'
+
+
+#read in your CSV
+
+csv_path=".../Documents/data.csv"
+
+df=pd.read_csv(csv_path)
+
+def ask_gpt():
+    task = input("What do you want to analyze? Please be very specific in the columns you want to analyze. ")
+    prompt =f"""
+      You are a computer scientist using Python programming and you need to write Python code for a pandas dataframe called "df".
+      Do not explain your answer. Only create the Python code that does the following:
+      {task}. 
+      """
+    print(prompt)
+    completion = openai.ChatCompletion.create(
+      model = 'gpt-3.5-turbo',
+      messages = [
+        {'role': 'user', 'content': prompt}
+      ],
+      temperature = 0  
+    )
+    print("I used the following code to produce the output" + completion['choices'][0]['message']['content'])
+    try:
+        return eval(completion['choices'][0]['message']['content'])
+    except:
+        print("I was not able to run the code. Make sure that you input the specific task that you want me to do")
+
+ask_gpt()
